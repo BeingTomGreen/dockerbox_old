@@ -1,6 +1,6 @@
 # dockerbox
 
-A basic system for managing multiple docker stacks.
+A basic system for managing multiple docker stacks that I started working on. I've since migrated away from this older version to a newer verison that deploys using swarm - I'm working on cleaning that up for publishing on GH too - thus this is in a very much half finished state.
 
 ## Service Overview
 
