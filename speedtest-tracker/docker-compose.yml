@@ -1,0 +1,37 @@
+---
+version: '3.3'
+
+services:
+  speedtest-tracker:
+    container_name: speedtest-tracker
+    image: 'ghcr.io/alexjustesen/speedtest-tracker:latest'
+    ports:
+      - '8982:80'
+      - '8943:443'
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=speedtest_tracker
+      - DB_USERNAME=speedy
+      - DB_PASSWORD=password
+    volumes:
+      - ./volumes/config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - ./volumes/ssl:/etc/ssl/web
+    restart: unless-stopped
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10
+    restart: always
+    environment:
+      - MARIADB_DATABASE=speedtest_tracker
+      - MARIADB_USER=speedy
+      - MARIADB_PASSWORD=password
+      - MARIADB_RANDOM_ROOT_PASSWORD=true
+    volumes:
+      - ./volumes/db-data:/var/lib/mysql

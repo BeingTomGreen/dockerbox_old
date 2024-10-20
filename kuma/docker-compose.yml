@@ -1,0 +1,17 @@
+---
+version: '3.8'
+
+services:
+  kuma:
+    image: louislam/uptime-kuma:1.23.10
+    restart: unless-stopped
+    container_name: kuma
+#    ports:
+#      - "${UPTIME_KUMA_PORT}:3001"
+    volumes:
+      - ./volumes/kuma-data:/app/data
+
+networks:
+  default:
+    external: true
+    name: dockerbox
